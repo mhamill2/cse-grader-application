@@ -1,0 +1,67 @@
+<% provide(:title, "Course List") %>
+<% provide(:main_content_header, "Course List") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %>
+<%= form_for(:course_list, url: course_list_path) do |f| %>
+  <!-- Course List Selector -->
+  <label class="inline-block">View courses for</label>
+  <% @semesters = Semester.all %>
+  <% arr = [] %>
+  <% @semesters.each do |semester|%>
+    <% var = "#{semester.semester} #{semester.year}" %>
+    <% arr.push(var) %>
+  <% end %>
+  <%= f.select :semester, options_for_select(arr.each) %>
+  <!-- Sort Selector -->
+  <label class="inline-block">sorted by</label>
+  <%= f.select :sort_method, options_for_select([['Course Name'], ['Section Number'], ["Grader Needs"]]) %>
+  <!-- Submit -->
+  <%= f.submit "Submit", class: "button-primary margin-lft-20-px" %>
+<% end %>
+
+<table id="admin-course-list-table" class="u-full-width">
+  <thead>
+    <tr>
+      <th>Course<br>Name</th>
+      <th>Section<br>Number</th>
+      <th>Grader<br>Assigned</th>
+      <th>Grader's<br>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td>CSE <%= course.course_number  %></td>
+        <td><%= course.section  %></td>
+        <% if course.grader_needed %>
+          <td><img src="/images/failure-icon.svg" alt="Grader is NOT assigned" width="20" height="20"></td>
+          <td>N/A</td>
+        <% else %>
+          <td><img src="/images/success-icon.svg" alt="Grader is assigned" width="20" height="20"></td>
+          <% arr = get_graders(course.section) %>
+          <% i = 0 %>
+          <% arr.each do |x| %>
+              <% if i > 0 %>
+                <br/><%=x.fname + " " + x.lname%> <%= link_to "X", grades_for_path(:section => course.section, :user_id => x.id), method: :delete, data: {confirm: "Are you sure you want to remove grader?"} %>
+              <% else %>
+                <td><%= x.fname + " " + x.lname%> <%= link_to "X", grades_for_path(:section => course.section, :user_id => x.id), method: :delete, data: {confirm: "Are you sure you want to remove grader?"} %>
+                <% i += 1 %>
+              <% end %>
+          <% end %>
+          </td>
+        <% end %>
+        <td><%= link_to "Add Grader", add_grader_path(:section => course.section) %></td>
+        <% if course.has_lab == true %>
+          <td><%= link_to "View Lab Times", view_lab_time_path(course) %></td>
+        <% else %>
+          <td>No Lab</td>
+        <% end %>
+        <td><%= link_to "Remove", course, method: :delete, data: {confirm: "Are you sure you want to delete CSE #{course.course_number}"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

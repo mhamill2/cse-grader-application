@@ -1,0 +1,18 @@
+<%
+  main_header_title = "GRADERS APP"
+  main_header_link = "home"
+  
+  home = {title: "Administrator Home", reference: "home"}
+  course_list = {title: "View Course List", reference: "course_list"}
+  add_course = {title: "Add Courses", reference: "add_course"}
+  manage_semesters = {title: "Manage Semesters", reference: "manage_semesters"}
+  user_list = {title: "View Users", reference: "user_list"}
+  add_admin = {title: "Add Admin", reference: "add_admin"}
+  view_requests = {title: "View Requests", reference: "view_requests"}
+  view_recommendations = {title: "View Recommendations", reference: "view_recommendations"}
+  view_applications = {title: "View Applications", reference: "view_applications"}
+  side_nav_links = [home, course_list, add_course, view_applications, view_recommendations, view_requests, user_list, add_admin, manage_semesters]
+%>
+<%=
+  render partial: "layouts/side_nav", locals: {side_nav_header_title: main_header_title, side_nav_header_link: main_header_link, side_nav_links: side_nav_links}
+%>

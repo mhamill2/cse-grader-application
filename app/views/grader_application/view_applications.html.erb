@@ -1,0 +1,42 @@
+<% provide(:title, "Application List") %>
+<% provide(:main_content_header, "Grader Applications") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %>
+<%= form_for(:application_viewer, url: view_applications_path) do |f| %>
+  <!-- Semester Selector -->
+  <label class="inline-block">View applications for</label>
+  <% @semesters_new = Semester.all %>
+  <% arr = [] %>
+  <% default_value = 0 %>
+  <% @semesters_new.each_with_index do |semester, i|%>
+    <% var = "#{semester.semester} #{semester.year}" %>
+    <% arr.push(var) %>
+    <% if @semester.id == semester.id %>
+        <% default_value = i %>
+    <% end %>
+  <% end %>
+  <%= f.select :semester, options_for_select((arr.each), :selected => arr[default_value]) %>
+  <!-- Submit -->
+  <%= f.submit "View", class: "button-primary margin-lft-20-px" %>
+<% end %>
+
+<!-- Aplication List -->
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Name.#</th>
+      <th>Full Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users_with_apps.each do |user| %>
+    <tr>  
+        <td><%= user.lname %>.<%= user.dot_number %></td>
+        <td><%= user.fname %> <%= user.lname %></td>
+        <td class="right-text"><%= link_to 'View Application', view_application_path(user) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

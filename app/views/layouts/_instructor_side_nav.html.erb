@@ -1,0 +1,14 @@
+<%
+  main_header_title = "GRADERS APP"
+  main_header_link = "home"
+  
+  home = {title: "Instructor Home", reference: "home"}
+  recommendation = {title: "Grader Recommendation", reference: "recommendation"}
+  request = {title: "Request a Grader", reference: "request_grader"}
+  evaluation = {title: "Submit Evaluation", reference: "submit_evaluation"}
+
+  side_nav_links = [home, recommendation, request, evaluation]
+%>
+<%=
+  render partial: "layouts/side_nav", locals: {side_nav_header_title: main_header_title, side_nav_header_link: main_header_link, side_nav_links: side_nav_links}
+%>

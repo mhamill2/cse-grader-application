@@ -1,0 +1,41 @@
+<% provide(:title, "Add Grader") %>
+<% provide(:main_content_header, "Add Grader") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %> 
+<%= form_for(@grades_for) do |f| %>
+<%= f.hidden_field :section, :value => @section %>
+<div class="row">
+   <div class="twelve columns">
+      <fieldset>
+        <% arr = find_valid_graders(@section) %>
+        <% if arr == [] %>
+          <legend>There are currently no applications for CSE <%= Course.find_by_section(@section).course_number %></legend>
+        <% else %>
+          <legend>Select user to assign to class</legend>
+          <table id="admin-course-list-table" class="u-full-width">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th class="center-text">Number of Recommendations</th>
+                <th></th>
+              </tr>
+            </thead>
+            <% arr.each do |a| %>
+              <tr>
+                <td><%= a.lname %>.<%= a.dot_number %></td>
+                <td class="center-text"><%= a.num_of_recommends %></td>
+                <td><%= f.radio_button :user_id, a.id, class: 'zero-margin' %></td>
+              </tr>
+            <% end %>
+          </table>
+          <div class="row" class="right-text">
+            <div class="two columns offset-by-ten">
+              <%= f.submit "Submit", class: "button-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+<% end %>

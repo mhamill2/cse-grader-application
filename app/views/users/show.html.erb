@@ -1,0 +1,5 @@
+<% provide(:title, "#{@user.lname}.#{@user.dot_number} Profile") %>
+<% provide(:main_content_header, "#{@user.lname}.#{@user.dot_number}") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %>

@@ -1,0 +1,72 @@
+require 'test_helper'
+
+class UserTest < ActiveSupport::TestCase
+  def setup
+    @user = User.new(fname: "ExampleFirst", lname: "ExampleLast", 
+      email: "example@yahoo.com", password: "Password1", password_confirmation: "Password1")
+  end
+
+  test "valid user" do
+    assert @user.valid?
+  end
+
+  test "first name present" do
+    @user.fname = "     "
+    assert_not @user.valid?
+  end
+
+  test "last name present" do
+    @user.lname = "     "
+    assert_not @user.valid?
+  end
+
+  test "valid first name length" do
+    @user.fname = "a" * 26
+    assert_not @user.valid?
+  end
+
+  test "valid last name length" do
+    @user.lname = "a" * 26
+    assert_not @user.valid?
+  end
+
+  test "valid email length" do
+
+    @user.email = "a" * 244 + "@example.com"
+    assert_not @user.valid?
+  end
+
+  test "valid email" do
+    valid_email = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
+    valid_email.each do |x|
+      @user.email = x
+      assert @user.valid?, "#{x.inspect} should be valid"
+    end
+  end
+
+  test "invalid email" do
+    invalid_addresses = %w[user@example'com user_at_foo.org user.name@example.foo@yahoo.com foo@bar+baz.com]
+    invalid_addresses.each do |x|
+      @user.email = x
+      assert_not @user.valid?, "#{x.inspect} should be invalid"
+    end
+  end
+
+  test "unique email" do
+    user2 = @user.dup
+    user2.email = @user.email.upcase
+    @user.save
+    assert_not user2.valid?
+  end
+
+  test "valid password" do
+    @user.password = @user.password_confirmation = "Password1"
+    assert @user.valid?
+  end
+
+  test "invalid password" do
+    @user.password = @user.password_confirmation = "thisisinvalid"
+    assert_not @user.valid?
+  end
+
+end

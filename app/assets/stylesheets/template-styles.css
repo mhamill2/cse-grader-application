@@ -1,0 +1,326 @@
+/* Body Background Image */
+body {
+  background-color: white;
+  background-image: url(/images/background.png);
+}
+
+/* OSU Nav Bar Styles */
+#osu-nav-bar {
+  background-color: #b9b9ba;
+  background: linear-gradient(#e3e3e3, #b9b9ba);
+  border-bottom: 5px solid #bb0000;
+}
+#osu-nav-bar .container {
+  margin: 0px auto 0px auto;
+  padding: 5px 0px 5px 0px;
+  max-width:1024px;
+  overflow: hidden;
+}
+#osu-nav-bar .container img {
+  vertical-align: middle;
+}
+#osu-nav-bar nav {
+  float: right;
+}
+#osu-nav-bar nav::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+#osu-nav-bar nav ul {
+  margin: 0px;
+  padding: 0px;
+}
+#osu-nav-bar nav ul li {
+  display: inline-block;
+  margin: 0px 5px 0px 5px;
+}
+#osu-nav-bar nav ul li a {
+  font-family: 'proximanova','Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: .813em;
+  text-decoration: none;
+  color: #333333;
+}
+
+/* CSE Header Styles */
+#cse-header {
+  border-bottom: 50px solid #666666;
+  padding: 20px 0px 20px 0px;
+  background-color: white;
+}
+#cse-header .container {
+  margin: 0px auto 0px auto;
+  padding: 5px 0px 5px 0px;
+  max-width:1024px;
+  overflow: hidden;
+}
+.container::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+#dept-logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+#college-logo {
+  display: none;
+}
+@media (min-width: 1024px) {
+  #dept-logo {
+    float: left;
+  }
+  #college-logo {
+    float: right;
+    display: initial;
+  }
+}
+
+/* CSE Nav Bar Styles */
+#cse-nav-bar {
+  max-width: 1024px;
+  min-height: 63px;
+  margin: -50px auto 0px auto;
+}
+#cse-nav-bar .container {
+  box-sizing: content-box;
+  width: auto;
+  background-color: #bb0000;
+  border-bottom: 7px solid #6c0303;
+}
+@media (min-width: 1024px) {
+  #cse-nav-bar {
+    margin: -60px auto 0px auto;
+    background-image: url(/images/nav-left-end.png), url(/images/nav-right-end.png);
+    background-position: bottom left, bottom right;
+    background-repeat: no-repeat;
+  }
+  #cse-nav-bar .container {
+    margin: 0px 12px 0px 12px;
+    height: 56px;
+  }
+}
+#cse-nav-bar nav ul {
+  margin: 0px;
+  padding: 13px 0px 0px 0px;
+}
+#cse-nav-bar nav ul li {
+  display: inline-block;
+  margin: 0px 15px;
+  vertical-align: middle;
+}
+#cse-nav-bar nav ul li a {
+  font-family: 'proximanova','Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: white;
+}
+/* * * * * * * */
+/* Main Styles */
+/* * * * * * * */
+main {
+  box-sizing: border-box;
+  margin: 0px auto 0px auto;
+  background-color: white;
+  max-width: 1000px;
+}
+
+/* Main Nav Styles */
+main nav h5 {
+  margin: 0px;
+  padding: 25px 0px 0px 10px;
+  color: white;
+  background-color: #544f4a;
+  font-size: 2.0rem;
+}
+main nav h5 a {
+  color: white;
+  text-decoration: none;
+}
+main nav h5 a:hover {
+  color: white;
+  text-decoration: underline;
+}
+main nav ul {
+  margin: 0px;
+  padding: 0px;
+}
+main nav ul li {
+  margin: 3px 0px;
+  background-color: #f0efee;
+  vertical-align: middle;
+  list-style-type: none;
+}
+main nav ul li:hover {
+  background-color: #bb0606;
+}
+main nav ul li a {
+  display: block;
+  margin: 0px;
+  padding: 0px 10px;
+  font-family: 'proximanova','Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  text-decoration: none;
+  font-weight: 400;
+  color: black;
+}
+main nav ul li a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Main Content Styles */
+#main-content {
+  margin: 20px 2%;
+}
+#main-content.twelve.columns {
+  width: 96%;
+}
+@media (max-width: 549px) {
+  #main-content {
+    width: 96%;
+  }
+}
+
+/* Main Content Status Message Style */
+#main-content .message {
+  display: inline-block;
+  padding: 7px 10px;
+  font-size: 1.2em;
+  border-radius: 5px;
+}
+#main-content .message::before {
+  content: "";
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: table-cell;
+  width: 20px;
+}
+#main-content .message.neutral::before {
+  background-image: url('/images/neutral-icon.svg');
+}
+#main-content .message.neutral {
+  border: 1px solid #0008bc;
+  background-color: #b5deff;
+  color: #0008bc;
+}
+#main-content .message.success::before {
+  background-image: url('/images/success-icon.svg');
+}
+#main-content .message.success {
+  border: 1px solid #3f6600;
+  background-color: #dff7b7;
+  color: #3f6600;
+}
+#main-content .message.failure::before {
+  background-image: url('/images/failure-icon.svg');
+}
+#main-content .message.failure {
+  border: 1px solid #a80000;
+  background-color: #ffc4c4;
+  color: #a80000;
+}
+#main-content .message p {
+  margin: 0px;
+  display: table-cell;
+  padding-left: 10px;
+}
+
+/* Main Content Table Styles */
+#main-content tbody tr:nth-child(even) {
+  background-color: #e1e1e1;
+}
+
+/* Student Application Schedule Table Styles */
+#main-content .student-application-schedule-table tbody tr {
+  background-color: transparent;
+}
+#main-content .student-application-schedule-table th,
+#main-content .student-application-schedule-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px;
+}
+#main-content .student-application-schedule-table th:nth-child(1),
+#main-content .student-application-schedule-table td:nth-child(1) {
+  text-align: left;
+}
+#main-content .student-application-schedule-table input {
+  margin: 0px;
+}
+
+/* Main Content Utility Styles */
+#main-content .center-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#main-content .center-text {
+  text-align: center;
+}
+#main-content .right-text {
+  text-align: right;
+}
+#main-content .font-weight-normal {
+  font-weight: normal;
+}
+#main-content .align-bottom {
+  height: 100%;
+  display: table-cell;
+  vertical-align: bottom;
+}
+#main-content .width-50-px {
+  width: 65px;
+}
+#main-content .inline-block {
+  display: inline-block;
+}
+#main-content .zero-margin {
+  margin: 0px;
+}
+#main-content .margin-lft-20-px {
+  margin-left: 20px;
+}
+#main-content .border-bottom-1-px {
+  border-bottom: 1px solid #adadad;
+}
+
+/* Login Container Styles */
+#login-container {
+  box-sizing: border-box;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #F3F3F3;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+/* Admin Course List Table Styles */
+#admin-course-list-table th {
+  text-align: center;
+}
+#admin-course-list-table td:nth-child(3) {
+  text-align: center;
+}
+
+/* Admin Remove User Table Styles */
+#admin-remove-user-table th:nth-child(2),
+#admin-remove-user-table td:nth-child(2) {
+  text-align: center;
+}
+#admin-remove-user-table th:nth-child(3),
+#admin-remove-user-table td:nth-child(3) {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+

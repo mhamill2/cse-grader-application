@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_number: 1
+  section: 1
+  student_lname: MyString
+  student_dot_number: 1
+
+two:
+  course_number: 1
+  section: 1
+  student_lname: MyString
+  student_dot_number: 1

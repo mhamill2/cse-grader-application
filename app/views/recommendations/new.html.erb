@@ -1,0 +1,67 @@
+<% provide(:title, "Recommend a Grader") %>
+<% provide(:main_content_header, "Recommend a Grader") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/instructor_side_nav" %>
+<% end %>
+<%= form_for(@recommendation) do |r| %>
+  <% if @not_valid %>
+    <div class="center-text">
+      <div class="message failure">
+        <p>Not a valid user</p>
+      </div>
+    </div>
+  <% end %>
+  <% if @recommendation.errors.any? %>
+    <div class = "center-text">
+      <div id="error_explanation" class="message failure u-full-width">
+        <p class="zero-margin">
+          <strong>Error:</strong>
+          <% 
+            @recommendation.errors.full_messages.each_with_index do |msg, i| 
+              if i < @recommendation.errors.full_messages.size - 1
+                concat msg += ", "
+              else
+                concat msg 
+              end
+            end
+          %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+  <!-- Row 1 -->
+  <div class="row">
+    <!-- Last Name -->
+    <div class="four columns">
+      <label for="last-name">Student's Last Name</label>
+      <%= r.text_field :student_lname, class: "u-full-width" %>
+    </div>
+
+    <!-- Dot Number -->
+    <div class="two columns">
+      <label for="dot=number">Dot Number</label>
+      <%= r.text_field :student_dot_number, class: "width-50-px" %>
+    </div>
+
+    <!-- Course Number -->
+    <div class="four columns">
+      <label for="last-name">Recomended Course Number</label>
+      <%= r.text_field :course_number, class: "u-full-width" %>
+    </div>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="row">
+    <div class="twelve columns">
+      <label for="comments">Comments</label>
+      <%= r.text_area :comments, class: "u-full-width" %>
+    </div>
+  </div>
+            
+  <!-- Row 5 -->
+  <div class="row" class="right-text">
+    <div class="two columns offset-by-ten">
+      <%= r.submit "Submit", class: "button-primary" %>
+    </div>
+  </div>
+<% end %>

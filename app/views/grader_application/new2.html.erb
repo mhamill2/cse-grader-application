@@ -1,0 +1,102 @@
+<% provide(:title, "Grader Application") %>
+<% provide(:main_content_header, "Grader Application") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+<%= form_for(:schedule, url: schedule_path, :authenticity_token => true) do |f| %>
+<%= f.hidden_field :semester, :value => @semester %>
+<div class="row">
+    <!-- First Name -->
+    <div class="six columns">
+      <p>First Name: <%= current_user.fname %></p>
+    </div>
+    <!-- Last Name -->
+    <div class="six columns">
+      <p>Last Name: <%= current_user.lname %></p>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="row">
+    <div class="twelve columns">
+      <fieldset>
+        <legend>Select the classes are you interested in grading</legend>
+        <% @courses = Course.all %>
+        <% @courses = @courses.uniq %>
+        <% i = 0 %>
+        <% sort_by_course %>
+        <% @courses.each do |c| %>
+          <% is_selected = false %>
+          <% @app_list.each do |selected| %>
+            <% if selected.course_number == c.course_number %>
+              <% is_selected = true %>
+              <% break %>
+            <% end %>
+          <% end %>
+          <%= f.hidden_field :course_names, :multiple => true, value: c.course_number %>
+          <% if i%3 == 0 %>
+            <div class="row">
+          <% end %>
+        <!-- Row 3-1 -->
+          <div class="four columns">
+            <label>
+              <% if is_selected %>
+                <%= f.check_box :course_selected, {:checked => true, :multiple => true} %>
+              <% else %>
+                <%= f.check_box :course_selected, {:multiple => true} %> 
+              <% end %>
+              <span class="label-body">CSE <%= c.course_number %></span>
+            </label>
+          </div>
+          <% i += 1 %>
+          <% if i%3 == 0 %>
+            </div>
+          <% end %>
+        <% end %>
+        <% if i % 3 != 0 %>
+          </div>
+        <% end %>  
+      </fieldset>
+    </div>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="row">
+    <div class="twelve columns">
+      <fieldset>
+        <legend>Select the time ranges you are available</legend>
+        <div class="row">
+          <!-- Left Table -->
+          <div class="six columns">
+            <% number_of_rows = (@number_of_minute_intervals / 2) + (@number_of_minute_intervals % 2) %>
+            <%= render partial: "layouts/availability_selector", locals: {number_of_rows: number_of_rows, minute: @minute, minute_interval_length: @minute_interval_length, hour: @hour, f: f, ready_intervals: @ready_intervals, start_point: 0} %>
+            <% 
+              #update hour/minutes
+              @hour += number_of_rows / (60 / @minute_interval_length)
+              @minute += number_of_rows * @minute_interval_length
+            %>
+          </div>
+          <!-- Right Table -->
+          <div class="six columns">
+            <% number_of_rows = (@number_of_minute_intervals / 2) %>
+            <%= render partial: "layouts/availability_selector", locals: {number_of_rows: number_of_rows, minute: @minute, minute_interval_length: @minute_interval_length, hour: @hour, f: f, ready_intervals: @ready_intervals, start_point:  (@ready_intervals[0].length-(@ready_intervals[0].length/2))}%>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  
+  <!-- Row 6 -->
+  <div class="row" class="right-text">
+    <div class="two columns offset-by-ten">
+      <%= f.submit "Submit", class: "button-primary" %>
+    </div>
+  </div>
+<% end %>

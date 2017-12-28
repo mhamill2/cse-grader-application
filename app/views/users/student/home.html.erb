@@ -1,0 +1,35 @@
+<% provide(:title, "Student Home Page") %>
+<% provide(:main_content_header, "Student Home Page") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/student_side_nav" %>
+<% end %>
+
+
+<!-- Aplication List -->
+<h5 class="border-bottom-1-px">Your Applications</h5>
+      <% arr =[] %>
+      <% unless @applications == [] %>
+      <div class="row">
+        <table class="nine columns">
+          <thead>
+            <tr>
+              <th>Semester</th>
+              <th></th>
+            </tr>
+          </thead>
+        <tbody>
+        <% @applications.each do |a| %>
+          <% unless arr.include? a.semester_id %>
+            <% arr.push a.semester_id %>
+            <% semester = Semester.find(a.semester_id) %>
+            <tr>
+              <td><%= semester.semester %> <%= semester.year %></td>
+              <td class="right-text"><%= link_to 'View Application', view_application_path(current_user, semester.id) %></td>
+            </tr>
+            <% arr.push semester.id %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

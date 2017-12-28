@@ -1,0 +1,35 @@
+<% provide(:title, "Requests") %>
+<% provide(:main_content_header, "Grader Requests") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+<!-- Instructor Request List -->
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Instructor Name.#</th>
+        <th>Course Number</th>
+        <th>Section</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <tbody>
+      <% @requests.each do |r| %>
+        <% user = User.find(r.instructor_id) %>
+        <tr>
+          <td><%= user.fname %> <%= user.lname %>.<%= user.dot_number %></td>
+          <td><%= r.course_number %></td>
+          <td><%= r.section %></td>
+          <td class="right-text"><%= link_to "View Request", r %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

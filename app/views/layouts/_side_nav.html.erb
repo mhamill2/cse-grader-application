@@ -1,0 +1,6 @@
+          <h5><a href="<%= side_nav_header_link %>"><%= side_nav_header_title %></a></h5>
+          <ul>
+            <% side_nav_links.each do |link| %>
+            <li><a href="<%= link[:reference] %>"><%= link[:title] %></a></li>
+            <% end %>
+          </ul>

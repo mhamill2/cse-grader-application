@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= full_title(yield(:title)) %></title>
+    <link rel="stylesheet" href="stylesheets/normalize.css">
+    <link rel="stylesheet" href="stylesheets/skeleton.css">
+    <link rel="stylesheet" href="stylesheets/template-styles.css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <!-- OSU Nav Bar -->
+      <div id="osu-nav-bar">
+        <div class="container">
+          <a href="http://www.osu.edu"><img src="/images/osu-name.png" alt="OSU.edu" title="The Ohio State University" width="80" height="16"></a>
+          <nav>
+            <ul>
+              <li><a href="https://www.osu.edu/help.php">Help</a></li>
+              <li><a href="https://buckeyelink.osu.edu/">BuckeyeLink</a></li>
+              <li><a href="https://www.osu.edu/map/">Map</a></li>
+              <li><a href="https://www.osu.edu/findpeople/">FindPeople</a></li>
+              <li><a href="https://email.osu.edu/">Webmail</a></li>
+              <li><a href="https://www.osu.edu/search.html">Search Ohio State</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <!-- CSE Header -->
+      <div id="cse-header">
+        <div class="container">
+          <img id="dept-logo" src="/images/cse-title.png" alt="CSE.OSU.edu" title="Department of Computer Science and Engineering">
+          <img id="college-logo" src="/images/osu-coe-logo.png" alt="Engineering.OSU.edu" title="The Ohio State University College of Engineering">
+        </div>
+      </div>
+
+      <!-- CSE Nav Bar -->
+      <div id="cse-nav-bar">
+        <div class ="container">
+          <nav>
+            <ul>
+              <li><a href="https://www.cse.osu.edu"><img src="/images/home-icon.svg" alt="CSE.OSU.edu" title="Department of Computer Science and Engineering" width="27" height="27"></a></li>
+              <li><a href="https://www.cse.osu.edu/department">About Us</a></li>
+              <li><a href="https://www.cse.osu.edu/prospective-students">Prospective Students</a></li>
+              <li><a href="https://www.cse.osu.edu/current-students">Current Students</a></li>
+              <li><a href="https://www.cse.osu.edu/research">Research</a></li>
+              <li><a href="https://www.cse.osu.edu/computing-services">Computing Services</a></li>
+              <li><a href="https://www.cse.osu.edu/alumni">Alumni &amp; Friends</a></li>
+              <li><img src="/images/search-icon.svg" alt="Search" title="Search" width="27" height="27"></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="row">
+      <% if content_for?(:side_nav) %>
+        <nav class="three columns">
+          <%= yield(:side_nav) %>
+        </nav>
+        <!-- Start Main Content -->
+        <div id="main-content" class="nine columns">
+      <% else %>
+        <!-- Start Main Content -->
+        <div id="main-content" class="twelve columns">
+      <% end %>
+          <% if logged_in? %>
+            <p class="right-text zero-margin">Welcome <%= current_user.fname + " " + current_user.lname %> | <%= link_to "Change Password", account_settings_path(current_user) %> | <%= link_to "Log out", logout_path, method: "delete" %></p>
+          <% end %>      
+          <h3><%= yield(:main_content_header) %></h3>
+          <%= yield %>
+        </div>
+        <!-- End Main Content -->
+      </div>
+    </main>
+    <% if logged_in? %>
+      <footer>
+      </footer>
+    <% end %>
+  </body>
+</html>

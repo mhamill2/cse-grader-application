@@ -1,0 +1,34 @@
+<% provide(:title, "Grader Recommendation") %>
+<% provide(:main_content_header, "Grader Recommendation") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+<!-- Row 1 -->
+<div class="row">
+  <!-- Last Name -->
+  <div class="four columns">
+    <strong>Student's Name.#</strong>
+    <p><%= @user.fname %> <%= @user.lname %>.<%= @user.dot_number %></p>
+  </div>
+
+  <!-- Course Number -->
+  <div class="four columns">
+    <strong>Recomended Course</strong><br/>
+    <p>CSE <%= @recommendation.course_number %></p>
+  </div>
+</div>
+
+<!-- Row 2 -->
+<div class="row">
+  <div class="u-full-width">
+    <strong>Comments</strong>
+    <p><%= @recommendation.comments %></p>
+  </div>
+</div>
+        

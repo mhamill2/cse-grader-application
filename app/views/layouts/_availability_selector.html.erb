@@ -1,0 +1,82 @@
+<table class="student-application-schedule-table u-full-width">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% 
+      number_of_rows.times do |row|
+        # Set first_inutes
+        first_minute = minute % 60
+        # Increment @minutes
+        minute += minute_interval_length
+        # Set second_minutes
+        second_minute = minute % 60
+        # Set first_hour
+        first_hour = hour
+        # Incrment @hour if second_minutes has wrapped back around to 0
+        if second_minute < first_minute
+          hour += 1
+        end
+        #Set second_hour
+        second_hour = hour
+        #Set periods
+        first_period = "am"
+        second_period = "am"
+        if first_hour > 12
+          first_hour -= 12
+          second_hour -= 12
+        elsif second_hour > 12
+          second_hour -= 12
+        end
+        #Convert hours to standard time
+        if first_hour == 11 && second_hour == 12 
+          second_period = "pm"
+        elsif hour >= 12
+          first_period = "pm"  
+          second_period = "pm"
+        end
+
+        output = first_hour.to_s + ":" + first_minute.to_s.rjust(2, '0') + first_period + " - " + second_hour.to_s + ":" + second_minute.to_s.rjust(2, '0') + second_period
+    %>
+    <tr>
+      <td><%= output %></td>
+      <% if ready_intervals[0][row+start_point] == true %>
+        <td><%= f.check_box(:monday_time, {multiple: true, checked: true}) %></td>
+      <% else %>
+        <td><%= f.check_box(:monday_time, {multiple: true}) %></td>
+      <% end %>
+
+      <% if ready_intervals[1][row+start_point] == true %>
+        <td><%= f.check_box(:tuesday_time, {multiple: true, checked: true}) %></td>
+      <% else %>
+        <td><%= f.check_box(:tuesday_time, {multiple: true}) %></td>
+      <% end %>
+
+      <% if ready_intervals[2][row+start_point] == true %>
+        <td><%= f.check_box(:wednesday_time,{multiple: true, checked: true}) %></td>
+      <% else %>
+        <td><%= f.check_box(:wednesday_time, {multiple: true}) %></td>
+      <% end %>
+
+      <% if ready_intervals[3][row+start_point] == true %>
+        <td><%= f.check_box(:thursday_time,{multiple: true, checked: true}) %></td>
+      <% else %>
+        <td><%= f.check_box(:thursday_time, {multiple: true}) %></td>
+      <% end %>
+
+      <% if ready_intervals[4][row+start_point] == true %>
+        <td><%= f.check_box(:fruday_time,{multiple: true, checked: true}) %></td>
+      <% else %>
+        <td><%= f.check_box(:friday_time, {multiple: true}) %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

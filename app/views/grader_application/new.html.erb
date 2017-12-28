@@ -1,0 +1,35 @@
+<% provide(:title, "Grader Application") %>
+<% provide(:main_content_header, "Grader Application") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+
+<%= form_for(:new2, url: new2_path, :authenticity_token => true) do |f| %>
+  <!-- Row 1 -->
+  <div class="row">
+    <div class=" twelve columns">
+      <label class="inline-block">For which semester are you applying to be a grader?</label>
+      <% @semesters = Semester.all %>
+      <% arr = [] %>
+      <% @semesters.each do |semester|%>
+        <% var = "#{semester.semester} #{semester.year}" %>
+        <% arr.push(var) %>
+      <% end %>
+      <%= f.select :semester, options_for_select(arr.each) %>
+    </div>
+  </div>
+
+  <div class="row" class="right-text">
+    <div class="two columns offset-by-ten">
+      <%= f.submit "Next", class: "button-primary" %>
+    </div>
+  </div>
+<% end %>
+

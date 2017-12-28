@@ -1,0 +1,59 @@
+<% provide(:title, "Instructor Home Page") %>
+<% provide(:main_content_header, "Instructor Home Page") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/instructor_side_nav" %>
+<% end %>
+
+<!-- Instructor Recomendation List -->
+<h5 class="border-bottom-1-px">Your Recomendations</h5>
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Course</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tbody>
+    <% @recommendations = Recommendation.all %>
+    <% @recommendations.each do |r| %>
+      <% if r.instructor_id == current_user.id %>
+      <% user = User.find_by_lname_and_dot_number(r.student_lname.capitalize, r.student_dot_number) %>
+        <tr>
+          <td><%= user.fname %> <%= user.lname %>.<%= user.dot_number %></td>
+          <td><%= r.course_number %></td>
+          <td class="right-text"><%= link_to "View Recommendation", view_recommendation_path(r) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- Instructor Request List -->
+<% @requests = Request.all %>
+<h5 class="border-bottom-1-px">Your Grader Requests</h5>
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Course Number</th>
+      <th>Section</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tbody>
+      <% @requests.each do |r| %>
+      <% if r.instructor_id == current_user.id %>
+        <% user = User.find_by_lname_and_dot_number(r.student_lname.capitalize, r.student_dot_number) %>
+        <tr>
+          <td><%= user.fname %> <%= user.lname %>.<%= user.dot_number %></td>
+          <td><%= r.course_number %></td>
+          <td><%= r.section %></td>
+          <td class="right-text"><%= link_to "View Request", r %></td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+</table>

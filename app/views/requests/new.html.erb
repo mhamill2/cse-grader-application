@@ -1,0 +1,42 @@
+<% provide(:title, "Request a Grader") %>
+<% provide(:main_content_header, "Request a Grader") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/instructor_side_nav" %>
+<% end %>
+ <%= form_for(@request) do |r| %>
+  <!-- Row 2 -->
+  <div class="row">
+    <!-- Course Name -->
+    <div class="four columns">
+      <label for="first-name">Course Number</label>
+      <%= r.text_field :course_number, class: "u-full-width" %>
+    </div>
+
+    <!-- Section Number -->
+    <div class="four columns">
+      <label for="last-name">Section Number</label>
+      <%= r.text_field :section, class: "u-full-width" %>
+    </div>
+  </div>
+
+  <div class = "row">
+    <!-- Student Last Name -->
+    <div class="four columns">
+      <label for="last-name">Student's Last Name</label>
+      <%= r.text_field :student_lname, class: "u-full-width" %>
+    </div>
+
+    <!-- Dot Number -->
+    <div class="two columns">
+      <label for="dot=number">Dot Number</label>
+      <%= r.text_field :student_dot_number, class: "width-50-px" %>
+    </div>
+  </div>
+      
+  <!-- Row 5 -->
+  <div class="row" class="right-text">
+    <div class="two columns offset-by-ten">
+     <%= r.submit "Submit", class: "button-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,65 @@
+<% provide(:title, "Log in") %>
+<% provide(:main_content_header, "CSE Grader Application Program") %>
+
+<% content_for :side_nav do %>
+  <% if logged_in? %>
+    <% if current_user.role == "admin" %>
+      <% render partial: "layouts/admin_side_nav" %>
+    <% elsif current_user.role == "instructor" %>
+      <% render partial: "layouts/instructor_side_nav" %>
+    <% else %>
+      <% render partial: "layouts/student_side_nav" %>
+    <% end %>
+  <% else %>
+    <% render partial: "layouts/main_side_nav" %>
+  <% end %>
+<% end %>
+
+<p class="center-text">
+  <strong>Students:</strong> Login below to submit or manage your CSE grader application.<br>
+  <strong>Instructors:</strong> Login below to submit a grader recommendation or grader request.<br>
+</p>
+
+<% if @invalid %>
+<div class="center-text">
+  <div class="message failure">
+    <p><%= @error_message %></p>
+  </div>
+</div>
+<% end %>
+
+<div id="login-container">
+  <%= form_for(:session, url: login_path) do |f| %>
+    <!-- Row 1 -->
+    <div class="row">
+      <!-- Username -->
+      <div class="twelve columns">
+        <label>Ohio State Username</label>
+        <%= f.text_field :user_name, class: 'u-full-width', placeholder: "username.#" %>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="row">
+      <!-- Password -->
+      <div class="twelve columns">
+        <label>Password</label>
+        <%= f.password_field :password, class: 'u-full-width' %>
+      </div>
+    </div>
+    
+    <!-- Row 3 -->
+    <div class="row right-text">
+      <div class="twelve columns">
+        <%= f.submit "Log in", class: "button-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Row 4 -->
+  <div class="row">
+    <div class="twelve columns">
+      <a href="signup">Create an account</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<% provide(:title, "Manage Semesters") %>
+<% provide(:main_content_header, "Manage Semesters") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %>
+
+<!-- Change Current Semester -->
+<form>
+  <h5 class="border-bottom-1-px">Change Current Semester</h5>  
+  <div class="row">
+    <!-- Current Semseter -->
+    <div class="ten columns">
+      <label class="inline-block">Current Semester</label>
+      <select id="exampleRecipientInput">
+        <option value="Option 1">Summer 2017</option>
+        <option value="Option 2">Fall 2017</option>
+        <option value="Option 3">Spring 2018</option>
+      </select>
+    </div>
+    <!-- Submit -->
+    <div class="two columns">
+      <input class="button-primary" type="submit" value="Submit">
+    </div>
+  </div>
+</form>
+
+<!-- Add New Semester -->
+<%= form_for(:semester, url: semester_path) do |s| %>
+  <h5 class="border-bottom-1-px">Add New Semester</h5>
+  <div class="row">
+    <div class="ten columns">
+      <!-- Season -->
+      <label class="inline-block">Season</label>
+      <%= s.select :semester, options_for_select([['Summer'], ['Fall'], ['Spring']]) %>
+      <!-- Year -->
+      <label class="inline-block">Year</label>
+      <%= s.text_field :year, class: "width-50-px" %>
+    </div>
+    <!-- Submit -->
+    <div class="two columns">
+      <%= s.submit "Submit", class: "button-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<!-- Remove Semester -->
+<h5 class="border-bottom-1-px">Remove Semester</h5>
+<div class="row">
+  <table class="five columns">
+    <thead>
+      <tr>
+        <th>Semester</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @semesters = Semester.all %>
+      <% @semesters.each do |semester| %>
+        <tr>
+          <td><%= semester.semester %><%= semester.year %></td>
+          <td class="right-text">
+            <%= link_to "Remove", semester, method: :delete, data: {confirm: "Are you sure you want to delete #{semester.semester} #{semester.year}? All courses for this semester will be deleted as well"} %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

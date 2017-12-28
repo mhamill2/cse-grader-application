@@ -1,0 +1,69 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  activerecord:
+    attributes:
+      user:
+        fname: "First name"
+        lname: "Last name"
+        email: ""
+    errors:
+      models:
+        user:
+          attributes:
+            fname:
+              blank: "cannot be blank"
+            lname:
+              blank: "cannot be blank"
+            dot_number: 
+              not_an_integer: "cannot be a decimal number"
+              not_a_number: "cannot contain letters or special characters"
+              blank: "cannot be blank"
+            email:
+              taken: "Last name and dot number taken"
+            password: 
+              blank: "cannot be blank"
+              invalid: "password must contain 1 uppercase letter, 1 number, and at least 8 characters"
+        recommendation:
+          attributes:
+            course_number: 
+              blank: "cannot be blank"
+              not_an_integer: "cannot be a decimal number"
+              not_a_number: "cannot contain letters or special characters"
+            student_lname:
+              blank: "cannot be blank"
+        course:
+          attributes:
+            course_number: 
+              blank: "cannot be blank"
+              not_an_integer: "cannot be a decimal number"
+              not_a_number: "cannot contain letters or special characters"
+            section:
+              blank: "cannot be blank"
+              not_an_integer: "cannot be a decimal number"
+              not_a_number: "cannot contain letters or special characters"
+            year:
+              blank: "cannot be blank"
+              not_an_integer: "cannot be a decimal number"
+              not_a_number: "cannot contain letters or special characters"
+              greater_than_or_equal_to: "cannot be a previous semester"
+              less_than_or_equal_to: "must be within 1 year of the current year"

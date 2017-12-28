@@ -1,0 +1,36 @@
+<% provide(:title, "Recommendations") %>
+<% provide(:main_content_header, "Grader Recommendations") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+<!-- Instructor Recomendation List -->
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Instructor Name.#</th>
+      <th>Course Number</th>
+      <th>Student</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tbody>
+    <% @recommendations.each do |r| %>
+      <% user = User.find(r.instructor_id) %>
+      <tr>
+        <td><%= user.fname %> <%= user.lname %>.<%= user.dot_number %></td>
+        <td><%= r.course_number %></td>
+        <% user = User.find_by_lname_and_dot_number(r.student_lname.capitalize, r.student_dot_number) %>
+        <td><%= user.lname %>.<%= user.dot_number %></td>
+        <td class="right-text"><%= link_to "View Recommendation", view_recommendation_path(r) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

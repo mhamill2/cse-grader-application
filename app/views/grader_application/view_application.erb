@@ -1,0 +1,58 @@
+<% provide(:title, "View Grader Application") %>
+<% provide(:main_content_header, "View Grader Application") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+
+<!-- Basic Information -->
+<div class="row">
+  <!-- First Name -->
+  <div class="four columns">
+    <strong>First Name</strong>
+    <p><%= @user.fname%></p>
+  </div>
+
+  <!-- Last Name -->
+  <div class="four columns">
+    <strong>Last Name</strong>
+    <p><%= @user.lname %></p>
+  </div>
+
+  <!-- Email -->
+  <div class="four columns">
+    <strong>Email</strong>
+    <p><%= @user.email%></p>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Availability -->
+  <div class="six columns">
+    <strong>Availability</strong>
+    <ul>
+    <% @schedules.each do |s| %>
+      <% temp = s.start_time.to_s.split %>
+      <% start_t = temp[1] %>
+      <% temp = s.end_time.to_s.split %>
+      <% end_t = temp[1] %>
+      <li><%= s.day %>: <%= start_t %> - <%= end_t %></li>
+    <% end %>
+    <ul>
+  </div>
+  <!-- Interested in grading -->
+  <div class="six columns">
+    <strong>Interested in grading:</strong>
+    <ul>
+    <% @applications.each do |a| %>
+      <li>CSE <%= a.course_number %></li>
+    <% end %>
+    </ul>
+  </div>
+</div>

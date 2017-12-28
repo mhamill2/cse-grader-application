@@ -1,0 +1,36 @@
+<% provide(:title, "User List") %>
+<% provide(:main_content_header, "User List") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %>
+<!-- User List -->
+<%= form_for(:user_list, url: user_list_path) do |f| %>
+   <!-- Sort Selector -->
+  <label class="inline-block">Sorted By</label>
+  <%= f.select :sort_method, options_for_select([['First Name'], ['Last Name.#'], ["User Type"]]) %>
+  <%= f.submit "Submit", class: "button-primary margin-lft-20-px" %>
+<% end %>
+<table id="admin-remove_user-table" class="u-full-width">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last name.#</th>
+      <th>User Type</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.fname  %></td>
+        <td><%= user.lname + "."  %><%= user.dot_number  %></td>
+        <td><%= user.role  %></td>
+        <td><%= link_to "Change Password", account_settings_path(user.id) %></td>
+        <td><%= link_to "Remove User", user, method: :delete, data: {confirm: "Are you sure you want to delete the account associated with: #{user.lname}"} %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

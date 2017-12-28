@@ -1,0 +1,39 @@
+<% provide(:title, "Edit Profile") %>
+<% provide(:main_content_header, "Edit Profile") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+<%= form_for(@user) do |f| %>
+ <!-- Row 1 -->
+  <div class="row">
+
+  <!-- Row 2 -->
+  <div class="row">
+    <!-- Password -->
+    <div class="four columns">
+      <label for="user-password">Password</label>
+      <%= f.password_field :password, class: "u-full-width" %>
+    </div>
+
+    <!-- Retype Password -->
+    <div class="four columns">
+      <label for="user-retyped-password">Retype Password</label>
+       <%= f.password_field :password_confirmation, class: "u-full-width" %>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="row">
+    <div class="two columns offset-by-eight">
+      <%= f.submit "Save Changes", class: "button-primary" %>
+    </div>
+  </div>
+
+<% end %>

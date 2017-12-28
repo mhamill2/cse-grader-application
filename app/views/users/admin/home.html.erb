@@ -1,0 +1,34 @@
+<% provide(:title, "Administrator Home Page") %>
+<% provide(:main_content_header, "Administrator Home Page") %>
+<% content_for :side_nav do %>
+  <% render partial: "layouts/admin_side_nav" %>
+<% end %>
+
+<!-- Course List -->
+<% if @courses != [] %>
+  <h5 class="border-bottom-1-px">Courses Without a Grader</h5>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Section Number</th>
+        <th>Semester</th>
+        <th class="center-text">Grader Assigned</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <tbody>
+      <% @courses.each do |c| %>
+      <tr>
+        <td>CSE <%= c.course_number %></td>
+        <td><%= c.section %></td>
+        <% semester = Semester.find(c.semester_id) %>
+        <td><%= semester.semester %> <%= semester.year %></td>
+        <td class="center-text"><img src="/images/failure-icon.svg" alt="Grader is NOT assigned" width="20" height="20"></td>
+        <td class="right-text"><%= link_to "Add Grader", add_grader_path(:section => c.section) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

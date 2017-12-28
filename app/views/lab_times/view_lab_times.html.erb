@@ -1,0 +1,21 @@
+<% provide(:title, "Lab Times") %>
+<% provide(:main_content_header, "Lab Times") %>
+<% content_for :side_nav do %>
+  <% if current_user.role == "admin" %>
+    <% render partial: "layouts/admin_side_nav" %>
+  <% elsif current_user.role == "instructor" %>
+    <% render partial: "layouts/instructor_side_nav" %>
+  <% else %>
+    <% render partial: "layouts/student_side_nav" %>
+  <% end %>
+<% end %>
+
+<ul>
+  <% @labs.each do |s| %>
+    <% temp = s.start_time.to_s.split %>
+    <% start_t = temp[1] %>
+    <% temp = s.end_time.to_s.split %>
+    <% end_t = temp[1] %>
+    <li><%= s.day %>: <%= start_t %> - <%= end_t %></li>
+  <% end %>
+<ul>
